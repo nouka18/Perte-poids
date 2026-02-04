@@ -1,2 +1,5 @@
 streamlit>=1.30
-matplotlib>=3.7
+pandas>=2.0
+altair>=5.0
+gspread>=6.0
+google-auth>=2.0
