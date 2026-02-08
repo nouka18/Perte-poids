@@ -195,7 +195,7 @@ st.title("📉 Perte de poids : plan + suivi (multi-utilisateur)")
 st.caption("Chaque utilisateur a son profil + son historique séparés via un identifiant (user_id).")
 
 user_id = st.text_input(
-    "Ton identifiant (user_id) — ex: nouha ou ton email",
+    "Ton identifiant (user_id) — ex: ton prénom ou ton email",
     value=st.session_state.get("user_id", "")
 ).strip().lower()
 
