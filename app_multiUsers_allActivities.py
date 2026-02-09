@@ -301,13 +301,16 @@ with tab_plan:
     proteines_g = 1.6 * poids_actuel
     perte_totale = poids_actuel - objectif
 
-    st.markdown(
-    f"""🔹 **BMR** : **{bmr:.0f} kcal/j**  Énergie que ton corps dépense **au repos total**, sur 24h.
+    st.markdown(  
+    f"""
+	🔷 **BMR** : **{bmr:.0f} kcal/j**  
+	- Énergie que ton corps dépense **au repos total**, sur 24h.
 
-	🔹 **TDEE** : **{tdee:.0f} kcal/j**  Calories brûlées **chaque jour en moyenne** (repos + activité).
+	🔷 **TDEE** : **{tdee:.0f} kcal/j**  
+	- Calories brûlées **chaque jour en moyenne** (repos + activité).
 
-	🔹 **Cible calorique** : **{calories_cible:.0f} kcal/j**  Apport conseillé pour atteindre ton objectif.""")
-
+	🔷 **Cible calorique** : **{calories_cible:.0f} kcal/j**  
+	- Apport conseillé pour atteindre ton objectif.""")
 
     st.write(f"**Déficit réel :** {deficit_reel:.0f} kcal/j")
     st.write(f"**Protéines (repère) :** {proteines_g:.0f} g/j")
