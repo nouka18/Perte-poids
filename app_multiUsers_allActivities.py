@@ -119,27 +119,29 @@ def profil_upsert_user(user_id: str, data: dict):
     ws_profil, _ = get_worksheets()
     rows = ws_profil.get_all_values()
 
-    # Ensure header
+    # Header si absent
     if len(rows) == 0:
         ws_profil.append_row(["user_id", "key", "value"])
         rows = ws_profil.get_all_values()
 
-    # Build index map (user_id,key) -> row number in sheet (1-based)
-    index = {}
-    for i, r in enumerate(rows[1:], start=2):
-        if len(r) >= 3:
-            index[(r[0], r[1])] = i
+    # Supprimer toutes les anciennes lignes de CE user
+    nouvelles_lignes = [["user_id", "key", "value"]]
+    for r in rows[1:]:
+        if len(r) < 3:
+            continue
+        if r[0] != user_id:
+            nouvelles_lignes.append(r)
 
-    # Upsert each key (few keys => acceptable)
+    # Ajouter les nouvelles valeurs du profil
     for k, v in data.items():
-        key = (user_id, k)
-        if key in index:
-            rownum = index[key]
-            ws_profil.update(f"C{rownum}", str(v))
-        else:
-            ws_profil.append_row([user_id, k, str(v)])
+        nouvelles_lignes.append([user_id, k, str(v)])
+
+    # ⚠️ UN SEUL APPEL API
+    ws_profil.clear()
+    ws_profil.update(nouvelles_lignes)
 
     profil_lire_user_cached.clear()
+
 
 # =========================
 # POIDS (multi-user)
@@ -323,22 +325,9 @@ with tab_plan:
     # ---- Save profil (for this user) ----
     st.markdown("### 💾 Sauvegarde profil")
     if st.button("Sauvegarder mon profil"):
-        nouveau = {
-            "poids_actuel": poids_actuel,
-            "taille_cm": taille_cm,
-            "age": age,
-            "sexe": sexe,
-            "objectif": objectif,
-            "mode_deficit": mode_deficit,
-            "deficit_perso": deficit_perso,
-            "niveau_job": niveau_job,
-            "h_sport_faible": h_faible,
-	    "h_sport_moyenne": h_moyenne,
-            "h_sport_forte": h_forte,
-        }
-        profil_upsert_user(user_id, nouveau)
-        st.success("Profil sauvegardé ✅")
-        profil = profil_lire_user(user_id)
+    	profil_upsert_user(user_id, nouveau)
+    	st.success("Profil sauvegardé ✅")
+    	st.rerun()
 
     # ---- Projection ----
     st.markdown("### 📉 Projection (estimation)")
