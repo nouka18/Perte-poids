@@ -326,7 +326,7 @@ with tab_plan:
     st.markdown("### 💾 Sauvegarde profil")
 
     if st.button("Sauvegarder mon profil"):
-	nouveau = {
+        nouveau = {
         "poids_actuel": poids_actuel,
         "taille_cm": taille_cm,
         "age": age,
@@ -341,8 +341,8 @@ with tab_plan:
         "h_sport_forte": h_forte,
     }
 
-	profil_upsert_user(user_id, nouveau)
-    	st.success("Profil sauvegardé ✅")
+        profil_upsert_user(user_id, nouveau)
+        st.success("Profil sauvegardé ✅")
     	st.rerun()
 
 
