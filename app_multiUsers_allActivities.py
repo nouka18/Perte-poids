@@ -343,7 +343,7 @@ with tab_plan:
 
         profil_upsert_user(user_id, nouveau)
         st.success("Profil sauvegardé ✅")
-    	st.rerun()
+        st.rerun()
 
 
     # ---- Projection ----
