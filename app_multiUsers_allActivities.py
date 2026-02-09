@@ -324,10 +324,27 @@ with tab_plan:
 
     # ---- Save profil (for this user) ----
     st.markdown("### 💾 Sauvegarde profil")
+
     if st.button("Sauvegarder mon profil"):
-    	profil_upsert_user(user_id, nouveau)
+	nouveau = {
+        "poids_actuel": poids_actuel,
+        "taille_cm": taille_cm,
+        "age": age,
+        "sexe": sexe,
+        "objectif": objectif,
+        "mode_deficit": mode_deficit,
+        "deficit_perso": deficit_perso,
+        "niveau_job": niveau_job,
+        # heures de sport par intensité
+        "h_sport_faible": h_faible,
+        "h_sport_moyenne": h_moyenne,
+        "h_sport_forte": h_forte,
+    }
+
+	profil_upsert_user(user_id, nouveau)
     	st.success("Profil sauvegardé ✅")
     	st.rerun()
+
 
     # ---- Projection ----
     st.markdown("### 📉 Projection (estimation)")
